@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>时钟</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <canvas id="convas" style="display:block;margin:0 auto;"></canvas>
+    <script src="./js/digit.js"></script>
+    <script>
+        var merGinTop=200;
+        var merGinLeft=200;
+        var RADIUS=10;
+        var balls=[];
+        const colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"]
+        var canvas = document.getElementById("convas");
+        var ctx    = canvas.getContext("2d")
+        canvas.width=1024
+        canvas.height=768
+        ctx.lineWidth=10
+        ctx.fillStyle="blue";
+        var perDate = null;
+        var nowDate =null;
+        ctx.rect(0,0,canvas.width,canvas.height)
+        ctx.stroke()
+        setInterval(function(){
+            drawDigitClock();
+            updateData();
+        },1000)
+        function drawDigitClock(){
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            nowDate = new Date();
+            drawDigit(parseInt(nowDate.getMinutes()/10),merGinLeft);
+            drawDigit(nowDate.getMinutes()%10,merGinLeft+8*RADIUS*2);
+            drawDigit(10,merGinLeft+15*RADIUS*2);
+            drawDigit(parseInt(nowDate.getSeconds()/10),merGinLeft+20*RADIUS*2);
+            drawDigit(nowDate.getSeconds()%10,merGinLeft+28*RADIUS*2);
+            for(var i=0;i<balls.length;i++){
+                ctx.fillStyle=balls[i].color;
+                drawArc(ctx,balls[i].x,balls[1].y,balls[i].r)
+            }
+        }
+        function updateData(){
+            if(parseInt(nowDate.getMinutes()/10)!=parseInt(perDate.getMinutes()/10)){
+                addBalls(parseInt(nowDate.getMinutes()/10),merGinLeft);
+            }
+            if(parseInt(nowDate.getMinutes()%10)!=parseInt(perDate.getMinutes()%10)){
+                addBalls(nowDate.getMinutes()%10,merGinLeft+8*RADIUS*2);
+            }
+            if(parseInt(nowDate.getSeconds()%10)!=parseInt(perDate.getSeconds()%10)){
+                addBalls(parseInt(nowDate.getSeconds()/10),merGinLeft+20*RADIUS*2);
+            }
+            if(parseInt(nowDate.getSeconds()%10)!=parseInt(perDate.getSeconds()%10)){
+                addBalls(nowDate.getSeconds()%10,merGinLeft+28*RADIUS*2);
+            }
+            for(var i=0;i<balls.length;i++){
+                balls[i].x=balls[i].x+balls[i].vx;
+                balls[i].x=balls[i].y+balls[i].vy;
+                balls[i].vy=balls[i].vy+balls[i].g;
+            }
+            perDate = nowDate;
+        }
+        function addBalls(digitNo,pointX){
+            for(var i=0;i<digit[digitNo].length;i++){
+                for(var n=0;n<digit[digitNo][i].length;n++){
+                    if(digit[digitNo][i][n]==1){
+                        var ball={
+                            x:pointX+n*RADIUS*2,
+                            y:merGinTop+i*RADIUS*2,
+                            r:RADIUS,
+                            g:1.5+Math.random(),
+                            vx:Math.pow(-1,Math.random()*1000)*4,
+                            vy:-5,
+                            color:colors[Math.floor(colors.length*Math.random())]
+                        }
+                        balls.push(ball);
+                    }
+                }
+            }
+        }
+        function drawDigit(ctx,digitNo,pointX){
+            for(var i=0;i<digit[digitNo].length;i++){
+                for(var n=0;n<digit[digitNo][i].length;n++){
+                    if(digit[digitNo][i][n]==1){
+                        drawArc(ctx,pointX+n*RADIUS*2,merGinTop+i*RADIUS*2,RADIUS)
+                    }
+                }
+            }
+        }
+        function drawArc(ctx,x,y,r){
+            ctx.beginPath()
+            ctx.arc(x,y,r,0,2*Math.PI,false)
+            ctx.fill()
+        }
+    </script>
+</body>
+</html>
