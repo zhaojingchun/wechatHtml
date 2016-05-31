@@ -1,0 +1,27 @@
+*{
+    margin:0;
+    padding:0;
+}
+.game-container{
+    position: relative;
+    width:480px;
+    height:480px;
+    margin:20px auto 0;
+    background-color: #BBADA0;
+    border-radius: 5px;
+    padding: 20px 20px 0 0 ;
+}
+.grad-ceil{
+    width:100px;
+    height:100px;
+    background-color: #CDC1B4;
+    float:left;
+    margin:0 0 20px 20px;
+    border-radius: 5px;
+}
+.gameUp{
+    width:100px;
+    height:100px;
+    position: absolute;
+    border-radius: 5px;
+}

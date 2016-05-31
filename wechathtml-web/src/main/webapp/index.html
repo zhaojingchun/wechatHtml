@@ -3,24 +3,35 @@
 <head>
     <title>canvas学习</title>
     <meta charset="utf-8">
+    <style type="text/css">
+        *{margin: 0;padding: 0}
+        #warp{
+            background-color:yellow;
+            width:1024px;
+            margin:0 auto;
+        }
+        #head{
+            width:100%;
+            background-color:red;
+            height: 100px;
+        }
+        #mainBody{
+            width:100%;
+            background-color: green;
+            height: 100px;
+        }
+        #foot{
+            width:100%;
+            background-color: grey;
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
-     <canvas id="canvas"></canvas>
+    <div id="warp">
+        <div id="head"></div>
+        <div id="mainBody"></div>
+        <div id="foot"></div>
+    </div>
 </body>
-<script>
-    var canvas = document.getElementById("canvas");
-    var cxt = canvas.getContext("2d");
-    canvas.width=800;canvas.height=800;
-    cxt.rect(0,0,canvas.width,canvas.height);
-    cxt.strokeStyle="#235692";
-    cxt.moveTo(100,100);
-    cxt.lineTo(300,300);
-    cxt.lineTo(300,700);
-    cxt.stroke();
-    cxt.beginPath();
-    cxt.arc(100,100,50,0,1.8*Math.PI,false);
-    cxt.strokeStyle="red";
-    cxt.stroke();
-    cxt.fill();
-</script>
 </html>
