@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>抽奖</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+            border: none;
+        }
+        #wrap{
+            width:800px;
+            margin: 60px auto 0;
+        }
+        .prize{
+            font-size: 26px;
+            font-family: "Microsoft Yahei";
+            font-weight: bold;
+            text-indent: 140px;
+            margin-bottom: 40px;
+        }
+        .button a{
+            display: block;
+            margin-left:50px;
+            width: 100px;
+            height:30px;
+            float: left;
+            text-align: center;
+            background-color: #124358;
+            line-height: 30px;
+            font-size: 20px;
+            font-family: "Microsoft Yahei";
+            color: white;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+     <div id="wrap">
+          <div class="prize"></div>
+          <div class="button">
+              <a id="start" >开 始</a><a id="stop">结 束</a>
+          </div>
+     </div>
+</body>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+    var arr =["100元","200元","300元","400元","500元","600元","700元","谢谢惠顾"]
+    var timer;
+    $(".prize").text(arr[6])
+    var start = function(){
+        clearInterval(timer);
+        timer = setInterval(function(){
+            $(".prize").text(arr[Math.floor(Math.random()*arr.length)])
+        },50);
+        $("#start").css({"background-color":"#0DAAEA"})
+        flag = false;
+    };
+    var doStop = function(){
+        clearInterval(timer);
+        $("#start").css({"background-color":"#124358"})
+        flag =true;
+    };
+    var flag = true;
+    var keyUpFunction = function(e){
+        if(e.keyCode===13){
+           if(flag){
+               start();
+           }else{
+               doStop()
+           }
+        }
+    };
+    (function(){
+        $("#start").bind("click",start)
+        $("#stop").bind("click",doStop)
+        $(document).bind("keyup",keyUpFunction)
+    })();
+
+</script>
+</html>
