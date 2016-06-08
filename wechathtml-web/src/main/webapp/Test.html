@@ -1,96 +1,23 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <title></title>
+    <style>
+        div{
+            border: solid 1px black ;
+            /*float:left;*/
+            width:50px;
+            height:30px;
+            background-color:green;
+            margin:10px;
+        }
+        .div2{
+            float:left;
+            background-color:red;
+        }
+    </style>
 </head>
 <body>
-    <script type="text/javascript">
-//        var persion = {}
-//        persion.x=1;
-//        persion.prototype;
-//        function Ainmal(){
-//
-//        }
-//        var a = new Ainmal();
-//        var ss = Object.create({x:2})
-//        alert(ss.x);
-//        console.log(Object.getOwnPropertyDescriptor({x:1},"x"));
-//        console.log(Object.keys({x:1,y:2}))
-//
-//        function test1(){
-//            var a=10;
-//            return function(i){
-//                alert(a)
-//            }
-//        }
-//        var zz = test1()
-//        zz();
-//
-//        var o={
-//           m:function(){
-//               var self = this;
-//               console.log(this ===o);
-//               this.f = function (ss){
-//                   console.log(this===o);
-//                   console.log(self);
-//                   console.log(this);
-//                   console.log(this=== ss);
-//                   console.log(this==window);
-//               }
-//           }
-//        }
-//var mm = new o.m();
-//
-//console.log("=====================")
-//        mm.f(mm)
-var scope="global scope";
-function checkscope(){
-    var scope ="local scope";
-    function f(){
-        console.log(scope);
-        console.log("=============")
-        console.log(this.scope)
-    }
-    return f;
-}
-checkscope()();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </script>
-1231
+  <div>1</div>
+  <div class="div2">2</div>123456
 </body>
 </html>
