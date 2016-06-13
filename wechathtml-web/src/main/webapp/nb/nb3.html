@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>panda gobang</title>
+    <embed src="http://qzone.haoduoge.com/music2/2015-06-05/1433502187.mp3" hidden="true" autostart="true" loop="true">
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        body{
+            background-color:#fff;
+        }
+        canvas{
+            display: block;
+            margin:50px 0px 50px 125px;
+            box-shadow: -2px -2px 2px #efefef,5px 5px 5px #b9b9b9;
+        }
+        .chess_title{
+            width: 100%;
+            height:100px;
+            background-color: #000;
+            margin-top: 20px;
+            position: relative;
+            color:#fff;
+            line-height: 100px;
+            text-align: center;
+            min-width: 1000px;
+        }
+        .logo_img img{
+            width: 300px;
+            height: auto;
+            position: absolute;
+            top: -30px;
+            left: 10px;
+        }
+        .spander{
+            font-size: 40px;
+            font-family: "Bauhaus 93"
+        }
+        .gobang{
+            margin-left: 20px;
+            font-family: "Bauhaus 93"
+        }
+        .designer{
+            width: 150px;
+            font-size: 11px;
+            color: #fff;
+            display: block;
+            font-family: "Apple Chancery"
+        }
+        .designer{
+            position: absolute;
+            top:40px;
+            left:80%;
+        }
+        .gif_img{
+            width: 900px;
+            margin: 0 auto;
+        }
+        .gif_img img{
+            width: 100px;
+            height: auto;
+            float: left;
+        }
+        .help{
+            width: 200px;
+            height: 400px;
+            float: left;
+            margin-top:70px;
+            left:-200px;
+            top:0;
+            border-right: 1px solid #ccc;
+            position: relative;
+        }
+        .p1{
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background-color: #000;
+            color:#fff;
+            border-right:1px solid #000;
+            margin-right: -1px;
+            font-family: "Bauhaus 93"
+        }
+        .p2{
+            text-align: center;
+            line-height: 30px;
+            color: red;
+            margin-top: 30px;
+        }
+        .p2 span{
+            border-bottom: 2px solid red;
+            display: inline-block;
+            padding: 0 5px;
+
+        }
+        .p3{
+            padding:10px 5px 10px 10px;
+            line-height: 25px;
+            text-indent: 2em;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+        .p4{
+            background-color: #000;
+            color: #fff;
+            font-size: 12px;
+            height: 40px;
+            line-height: 20px;
+            padding: 0 2px 0 10px;
+            margin-top: 33px;
+            border-right:1px solid #000;
+            margin-right: -1px;
+        }
+        .p4 span{
+            font-family: "Bauhaus 93";
+        }
+        .help_img img{
+            width: 53px;
+            height: 45px;
+        }
+        .help_img{
+            position: absolute;
+            left:190px;
+            top:-5px;
+        }
+        .you_win{
+            text-align: center;
+            width: 300px;
+            height: 100px;
+            background: url(http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/you_win1.jpg) left center no-repeat;
+            background-size: 300px 100px;
+            color:#F62499;
+            font-size: 40px;
+            padding-top: 60px;
+            display: none;
+            position: absolute;
+            left: 200px;
+            top:75px;
+        }
+        .you_lose{
+            text-align: center;
+            width: 300px;
+            height: 300px;
+            background: url(http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/you_lose.gif) left center no-repeat;
+            background-size: 300px 300px;
+            color:#00FFFF;
+            font-size: 40px;
+            padding-top: 0px;
+            display: none;
+            position: absolute;
+            left: 200px;
+            top:75px;
+        }
+        .chessBoard{
+            position: relative;
+            width: 700px;
+            margin: 0 auto;
+        }
+        #try_again{
+            display: block;
+            background-color:#00FFFF;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            color: #fff;
+            text-align: center;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+        #try_again:hover{
+            background-color: pink;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="chess_title">
+    <div class="designer">--Design by Thoth Tsai</div>
+    <p><span class="spander">Super Panda</span><span class="gobang">Gobang Game</span></p>
+    <div class="logo_img"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/nvftoiec.png" alt="logo"></div>
+</div>
+<div class="help" id="help">
+    <p class="p1">Super Panda Gobang</p>
+    <p class="p2"><span>玩法攻略</span></p>
+    <p class="p3">玩家执黑棋，电脑执白棋，玩家先下棋，最先将五颗同色棋无间隙的相连在一条直线上者获胜。电脑会自动判别胜负，如果游戏结束后你还想再次对战，可点击棋盘下方的<span>再试一次<span></p>
+    <p class="p4">喜欢<span>Super Panda</span>的话请扫描网页下方二维码加我微信吧！</p>
+    <div class="help_img"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/l1nbckmu.png"></div>
+</div>
+<div class="chessBoard">
+    <canvas id="chess" width="450px" height="450px"></canvas>
+    <div class="you_win" id="you_win">YOU WIN!</div>
+    <div class="you_lose" id="you_lose">YOU LOSE THE GAME!</div>
+    <span id="try_again" onclick="history.go(0)">再试一次</span>
+</div>
+
+<div class="gif_img"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/3jauzgad.gif"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/3jauzgad.gif"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/3jauzgad.gif"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/3jauzgad.gif"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/jfrqx06v.png"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/3jauzgad.gif"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/3jauzgad.gif"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/3jauzgad.gif"><img src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/3jauzgad.gif"></div>
+</body>
+<script type="text/javascript">
+var chessBoard=[];
+for(var i=0;i<15;i++){
+    chessBoard[i]=[];
+    for(var j=0;j<15;j++){
+        chessBoard[i][j]=0;
+    }
+}
+var me=true;
+var wins = [];
+for(var i=0;i<15;i++){
+    wins[i]=[];
+    for(var j=0;j<15;j++){
+        wins[i][j]=[];
+    }
+}
+var count= 0;
+for(var i=0;i<15;i++){
+    for(var j=0;j<11;j++){
+        for(var k=0;k<5;k++){
+            wins[i][j+k][count]=true;
+        }
+        count++;
+    }
+}
+for(var i=0;i<15;i++){
+    for(var j=0;j<11;j++){
+        for(var k=0;k<5;k++){
+            wins[j+k][i][count]=true;
+        }
+        count++;
+    }
+}
+for(var i=0;i<11;i++){
+    for(var j=0;j<11;j++){
+        for(var k=0;k<5;k++){
+            wins[i+k][j+k][count]=true;
+        }
+        count++;
+    }
+}
+for(var i=0;i<11;i++){
+    for(var j=4;j<15;j++){
+        for(var k=0;k<5;k++){
+            wins[i+k][j-k][count]=true;
+        }
+        count++;
+    }
+}
+var myWin =[];
+var computerWin =[];
+var over=false;
+for(var i=0; i<count; i++){
+    myWin[i]=0;
+    computerWin[i]=0;
+}
+
+var chess=document.getElementById('chess');
+var context=chess.getContext('2d');
+
+context.strokeStyle="#bfbfbf";
+var logo=new Image();
+logo.src="http://sandbox.runjs.cn/uploads/rs/144/pcicqkqm/an0qmofe.jpg";
+logo.onload=function(){
+    context.drawImage(logo,0,0,450,450);
+    drawChessBoard();
+    context.beginPath();
+    context.arc(200,200,100,0,2*Math.PI)
+    context.closePath();
+}
+
+var drawChessBoard=function(){
+    for(var i=0;i<15;i++){
+        context.moveTo(15+30*i,15);
+        context.lineTo(15+30*i,435);
+        context.stroke();
+        context.moveTo(15,15+30*i);
+        context.lineTo(435,15+30*i);
+        context.stroke();
+    }
+}
+
+var oneStep=function(i,j,me){
+    context.beginPath();
+    context.arc(15+i*30,15+j*30,13,0,2*Math.PI);
+    context.closePath();
+    var gradient=context.createRadialGradient(15+i*30+2,15+j*30-2,13,15+i*30+2,15+j*30-2,0);
+    if(me){
+        gradient.addColorStop(0,"#0a0a0a");
+        gradient.addColorStop(1,"#636766");
+    }else{
+        gradient.addColorStop(0,"#d1d1d1");
+        gradient.addColorStop(1,"#f9f9f9");
+    }
+    context.fillStyle=gradient;
+    context.fill();
+}
+chess.onclick=function(e){
+    if(over){
+        return;
+    }
+    if(!me){
+        return;
+    }
+    var x=e.offsetX;
+    var y=e.offsetY;
+    var i=Math.floor(x/30);
+    var j=Math.floor(y/30);
+    if(chessBoard[i][j]==0){
+        oneStep(i,j,me);
+        chessBoard[i][j]=1;
+        for(var k=0;k<count;k++){
+            if(wins[i][j][k]){
+                myWin[k]++;
+                computerWin[k]=6;
+                if(myWin[k]==5){
+                    var yWin=document.getElementById("you_win");
+                    yWin.style.display="block";
+                    over=true;
+                }
+            }
+        }
+        if(!over){
+            me=!me;
+            computerAI();
+        }
+    }
+}
+
+var computerAI=function(){
+    var myScore=[];
+    var computerScore=[];
+    var max=0;
+    var u=0;
+    var v=0;
+    for(var i=0;i<15;i++){
+        myScore[i]=[];
+        computerScore[i]=[];
+        for(var j=0;j<15;j++){
+            myScore[i][j]=0;
+            computerScore[i][j]=0;
+        }
+    }
+    for(var i=0;i<15;i++){
+        for(var j=0;j<15;j++){
+            if(chessBoard[i][j]==0){
+                for(var k=0;k<count;k++){
+                    if(wins[i][j][k]){
+                        if(myWin[k]==1){
+                            myScore[i][j]+=200;
+                        }else if(myWin[k]==2){
+                            myScore[i][j]+=400;
+                        }else if(myWin[k]==3){
+                            myScore[i][j]+=2000;
+                        }else if(myWin[k]==4){
+                            myScore[i][j]+=10000;
+                        }
+                        if(computerWin[k]==1){
+                            computerScore[i][j]+=220;
+                        }else if(computerWin[k]==2){
+                            computerScore[i][j]+=420;
+                        }else if(computerWin[k]==3){
+                            computerScore[i][j]+=2200;
+                        }else if(computerWin[k]==4){
+                            computerScore[i][j]+=100000;
+                        }
+                    }
+                }
+                if(myScore[i][j]>max){
+                    max=myScore[i][j];
+                    u=i;
+                    v=j;
+                }else if(myScore[i][j]==max){
+                    if(computerScore[i][j]>computerScore[u][v]){
+                        u=i;
+                        v=j;
+                    }
+                }
+                if(myScore[i][j]>max){
+                    max=myScore[i][j];
+                    u=i;
+                    v=j;
+                }else if(myScore[i][j]==max){
+                    if(computerScore[i][j]>computerScore[u][v]){
+                        u=i;
+                        v=j;
+                    }
+                }
+                if(computerScore[i][j]>max){
+                    max=computerScore[i][j];
+                    u=i;
+                    v=j;
+                }else if(computerScore[i][j]==max){
+                    if(myScore[i][j]>myScore[u][v]){
+                        u=i;
+                        v=j;
+                    }
+                }
+            }
+        }
+    }
+    oneStep(u,v,false);
+    chessBoard[u][v]=2;
+    for(var k=0;k<count;k++){
+        if(wins[u][v][k]){
+            computerWin[k]++;
+            myWin[k]=6;
+            if(computerWin[k]==5){
+                var cWin=document.getElementById("you_lose");
+                cWin.style.display="block";
+                over=true;
+            }
+        }
+    }
+    if(!over){
+        me=!me;
+    }
+}
+window.onload=function(){
+    var odiv=document.getElementById('help');
+    odiv.onmouseover=function(){
+        startMove(0);
+    }
+    odiv.onmouseout=function(){
+        startMove(-200);
+    }
+    var timer=null;
+    function startMove(iTarget){
+        clearInterval(timer);
+        var odiv=document.getElementById('help');
+        timer=setInterval(function(){
+            var speed=(iTarget-odiv.offsetLeft)/20;
+            speed=speed>0?Math.ceil(speed):Math.floor(speed);
+            if (odiv.offsetLeft==iTarget) {
+                clearInterval(timer);
+            }
+            else{
+                odiv.style.left=odiv.offsetLeft+speed+'px';
+            }
+        },10)
+    }
+}
+
+</script>
+</html>
