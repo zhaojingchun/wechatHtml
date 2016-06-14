@@ -3,259 +3,25 @@
 <head>
     <title>慕课迎春2016</title>
     <meta charset="utf-8">
-    <style>
-        /*  all  tab   */
-        *{
-            padding: 0;
-            margin: 0;
-        }
-        html,body{
-            width: 100%;
-            height: 100%;
-        }
-        /*     music    */
-        .music {
-            position: fixed;
-            top: 45px;
-            right: 45px;
-            width: 120px;
-            height: 120px;
-            border: 3px solid red;
-            border-radius: 50%;
-            padding: 6px;
-            background: #fff;
-        }
-        .music > img:first-of-type{
-            width: 100%;
-            height: 100%;
-        }
-        .music > img:last-of-type{
-            position: absolute;
-            top: 19px;
-            right: 7px;
-        }
-        /*    page1    */
-        /*.page1{display: none;}*/
-        .page1>.bg{
-            background: url(img/p1_bg.jpg) center no-repeat;
-            width: 100%;
-            height: 100%;
-            background-size: 100%;
-            z-index: -1;
-            position: absolute;
-        }
-
-
-        .page1,.page2,.page3{
-            width:100%;
-            height: 100%;
-            position: absolute;
-        }
-
-        .p1-lantern {
-            width: 70%;
-            height: 70%;
-            position: absolute;
-            left: 0px;
-            right: 0px;
-            top: -2px;
-            margin: auto;
-            background: url("img/p1_lantern.png") center bottom no-repeat;
-            background-size: 70% 100%;
-            text-align: center;
-            vertical-align: middle;
-            font-size: 69px;
-            padding-top: 485px;
-            box-sizing: border-box;
-        }
-        .p1-lantern:before {
-            content: "";
-            display: block;
-            width: 460px;
-            height: 460px;
-            position: absolute;
-            top: -59px;
-            right: 0px;
-            bottom: 0px;
-            left: 0px;
-            margin: auto;
-            background-color: #d60b3d;
-            border-radius: 50%;
-            opacity: .5;
-            box-shadow: 0 0 70px 52px #d60b3d;
-            z-index: -1;
-        }
-        .p1-imooc{
-            background: url("img/p1_imooc.png") no-repeat center center;
-            width: 200px;
-            height: 200px;
-            position: absolute;
-            bottom: 200px;
-            margin: auto;
-            left: 0px;
-            right: 0px;
-        }
-        .p1-content {
-            position: absolute;
-            right: 0;
-            left: 0;
-            bottom: 100px;
-            margin: 0 auto;
-            text-align: center;
-            font-size: 40px;
-        }
-        /*    page2    */
-        /*.page2{display: none;}*/
-        .page2>.bg{
-            background: url(img/p2_bg.jpg) center no-repeat;
-            width: 100%;
-            height: 100%;
-            background-size: 100%;
-            z-index: -1;
-            position: absolute;
-        }
-        .p2-circle {
-            width: 600px;
-            height: 600px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            margin: auto;
-            background: url(img/p2_circle_outer.png) no-repeat center;
-            background-size: 100%;
-            border-radius: 50%;
-        }
-        .p2-circle:before {
-            content: "";
-            display: block;
-            width: 400px;
-            height: 400px;
-            background: url(img/p2_circle_inner.png) no-repeat center;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            margin: auto;
-            background-size: 100%;
-        }
-        .p2-circle:after{
-            content: "";
-            display: block;
-            width: 480px;
-            height: 480px;
-            background: url(img/p2_circle_middle.png) no-repeat center;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            margin: auto;
-            background-size: 100%;
-        }
-        /*    page3    */
-        .page3>.bg{
-            background: url(img/p3_bg.jpg) center no-repeat;
-            width: 100%;
-            height: 100%;
-            background-size: 100%;
-            z-index: -1;
-            position: absolute;
-        }
-        .p3-logo {
-            width: 360px;
-            height: 170px;
-            background: url(img/p3_logo.png) no-repeat center;
-            position: absolute;
-            top: 150px;
-            right: 0;
-            left: 0;
-            background-size: 100%;
-            margin: auto;
-        }
-
-        .p3-title {
-            position: absolute;
-            top: 400px;
-            left: 0px;
-            right: 0px;
-            margin: auto;
-            width: 100px;
-            height: 100px;
-            background: url("img/p3_title.png") no-repeat center;
-        }
-        .p3-title {
-            position: absolute;
-            top: 360px;
-            left: 0px;
-            right: 0px;
-            margin: auto;
-            width: 500px;
-            height: 880px;
-            background: url("img/p3_title.png") no-repeat center;
-            background-size: 100%;
-        }
-
-        .p3-couplet-first {
-            position: absolute;
-            top: 400px;
-            right: 30px;
-            width: 260px;
-            height: 900px;
-            background: url("img/p3_couplet_first.png") no-repeat center;
-            background-size: 100%;
-        }
-
-        .p3-couplet-second {
-            position: absolute;
-            top: 400px;
-            left: 0px;
-            margin: auto;
-            width: 260px;
-            height: 900px;
-            background: url("img/p3_couplet_second.png") no-repeat center;
-            background-size: 100%;
-        }
-        .p3-blessing {
-            width: 400px;
-            height: 400px;
-            position: absolute;
-            right: 0px;
-            left: 0;
-            bottom: 200px;
-            margin: auto;
-            background: url("img/p3_blessing.png") no-repeat center;
-            background-size: 100%;
-        }
-        .p3-blessing {
-            width: 300px;
-            height: 300px;
-            position: absolute;
-            right: 0px;
-            left: 0;
-            bottom: 130px;
-            margin: auto;
-            background: url("img/p3_blessing.png") no-repeat center;
-            background-size: 100%;
-        }
-    </style>
+    <meta name="viewport" content="user-scalable=no" />
+    <link rel="stylesheet" href="css/2016.css">
 </head>
 <body>
       <div class="music">
-          <img src="img/music_disc.png">
+          <img class="play" src="img/music_disc.png">
           <img src="img/music_pointer.png">
       </div>
       <div class="page1">
           <div class="bg"></div>
-          <div class="p1-lantern">点击屏幕<br>开始好运2016</div>
+          <div class="p1-lantern" id="lantern" >点击屏幕<br>开始好运2016</div>
           <div class="p1-imooc"></div>
           <div class="p1-content">2016美好的开始</div>
       </div>
       <div class="page2">
+          <div class="bg-load bg"></div>
           <div class="bg"></div>
           <div class="p2-circle"></div>
+          <div class="p2-2016"></div>
       </div>
       <div class="page3">
           <div class="bg"></div>
@@ -266,4 +32,32 @@
           <div class="p3-blessing"></div>
       </div>
 </body>
+
+<script>
+    window.onload=function(){
+        page1 = document.getElementsByClassName("page1")[0] ;
+        page2 = document.getElementsByClassName("page2")[0] ;
+        page3 = document.getElementsByClassName("page3")[0] ;
+        music = document.getElementsByClassName("play")[0] ;
+        var flag=true;
+        music.addEventListener("click",function(){
+            if(flag){
+                this.style.animationPlayState="paused"
+                flag=false
+            }else{
+                this.style.animationPlayState="running"
+            }
+
+        },false)
+        document.getElementById("lantern").addEventListener("click",function(event){
+            page1.style.display="none"
+            page2.style.display="block"
+            setTimeout(function(){
+                page2.setAttribute("class","page2 fateOut ")
+                page3.setAttribute("class","page3 fateShow ")
+            },6000)
+
+        },false)
+    }
+</script>
 </html>
