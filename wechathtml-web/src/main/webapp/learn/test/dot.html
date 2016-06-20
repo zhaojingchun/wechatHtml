@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>dot</title>
+	<script type="text/javascript" src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/doT-1.0.3.js"></script>
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+	<script type="text/templet" id="test">
+		{{for(var i=0;i<it.length;i++){}}
+		  {{=it[1].name}}<br>
+		{{}}}
+
+	</script>
+	<script type="text/javascript">
+		function sss() {
+			var data = [{name:"zhaojingchun"},{name:"zhaojingchun"},{name:"zhaojingchun"}]
+			$("body").append(template.template($("#test").text())(data))
+		}
+
+		sss();
+	</script>
+</body>
+</html>
