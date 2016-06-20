@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <style>
+        body, html {
+            width: 100%;
+            min-width: 100%;
+            padding: 0;
+            margin: 0;
+            background-color: #305066
+        }
+        svg {
+            display: block;
+            margin: 100px auto 0;
+        }
+        g.shape circle {
+            stroke: white;
+            stroke-width: 2;
+            fill: rgba(0, 0, 0, 0)
+        }
+        g.shape circle.active {
+            fill: rgba(0, 0, 0, .4)
+        }
+        g.line {
+            pointer-events: none;
+        }
+        g.line circle {
+            fill: white;
+        }
+        .p {
+            stroke: white;
+            stroke-width: 3;
+            fill: rgba(0, 0, 0, 0)
+        }
+        .pos {
+            color: white;
+        }
+    </style>
+    <script id="jquery_183" type="text/javascript" class="library" src="/js/sandbox/jquery/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div class="pos"></div>
+<svg width="300" height="300">
+    <g class="shape">
+        <circle r="25" cx="50" cy="50"></circle>
+        <circle r="25" cx="50" cy="150"></circle>
+        <circle r="25" cx="50" cy="250"></circle>
+        <circle r="25" cx="150" cy="50"></circle>
+        <circle r="25" cx="150" cy="150"></circle>
+        <circle r="25" cx="150" cy="250"></circle>
+        <circle r="25" cx="250" cy="50"></circle>
+        <circle r="25" cx="250" cy="150"></circle>
+        <circle r="25" cx="250" cy="250"></circle>
+    </g>
+    <g class="line">
+        <path class="p"></path>
+    </g>
+</svg>
+</body>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $(function() {
+        var l = {
+            extend: function(o) {
+                var x;
+                for (x in o) {
+                    this[x] = o[x];
+                }
+                return this;
+            }
+        };
+        l.extend({
+            set: function() {
+                this.lineSvg = $('.line');
+                this.path = $('.p');
+            },
+            listen: function() {
+                var down = false,
+                        cc = null, /*当前圆圈*/
+                        tn = null, /*标签名*/
+                        em = null, /*坐标所在的元素*/
+                        pos = $('.pos'),
+                        path = [];
+                /*
+                 * For PC
+                 */
+                if (typeof document.ontouchstart == 'undefined') {
+                    $('.shape circle').on('mousedown', function() {
+                        var circle = $(document.createElementNS('http://www.w3.org/2000/svg', 'circle')).attr({
+                            r: 12,
+                            cx: this.cx.animVal.value,
+                            cy: this.cy.animVal.value
+                        });
+                        l.lineSvg.append(circle);
+                        this.setAttribute('class', 'active');
+                        down = true;
+                        path.push('M' + this.cx.animVal.value + ' ' + this.cy.animVal.value);
+                    });
+                    $('svg').on('mousemove', function(e) {
+                        if (down) {
+                            l.path.attr('d', path.join(' ') + ' ' + 'L' + e.offsetX + ' ' + e.offsetY);
+                        }
+                    });
+                    $('.shape circle').on('mousemove', function(e) {
+                        if (down && cc != this && !this.hasAttribute('class')) {
+                            path.push('L' + this.cx.animVal.value + ' ' + this.cy.animVal.value);
+                            var circle = $(document.createElementNS('http://www.w3.org/2000/svg', 'circle')).attr({
+                                r: 12,
+                                cx: this.cx.animVal.value,
+                                cy: this.cy.animVal.value
+                            });
+                            l.lineSvg.append(circle);
+                            this.setAttribute('class', 'active');
+                            cc = this;
+                        }
+                    });
+                    $(document).on('mouseup', function() {
+                        down = false;
+                        l.path.attr('d', path.join(' '));
+                    });
+                } else {
+                    /*
+                     * For mobile
+                     */
+                    $('svg').on('touchstart', function(e) {
+                        var circle;
+                        em = document.elementFromPoint(e.originalEvent.touches[0].pageX, e.originalEvent.touches[0].pageY);
+                        if (em.tagName == 'circle' && !em.hasAttribute('class')) {
+                            circle = $(document.createElementNS('http://www.w3.org/2000/svg', 'circle')).attr({
+                                r: 12,
+                                cx: em.cx.animVal.value,
+                                cy: em.cy.animVal.value
+                            });
+                            l.lineSvg.append(circle);
+                            em.setAttribute('class', 'active');
+                            down = true;
+                            path.push('M' + em.cx.animVal.value + ' ' + em.cy.animVal.value);
+                        }
+                    });
+                    $('svg').on('touchmove', function(e) {
+                        e.preventDefault();
+                        if (!down) {
+                            return;
+                        }
+                        em = document.elementFromPoint(e.originalEvent.touches[0].pageX, e.originalEvent.touches[0].pageY);
+
+                        if (em.tagName == 'circle' && cc != em && !em.hasAttribute('class')) {
+                            var circle = $(document.createElementNS('http://www.w3.org/2000/svg', 'circle')).attr({
+                                r: 12,
+                                cx: em.cx.animVal.value,
+                                cy: em.cy.animVal.value
+                            });
+                            l.lineSvg.append(circle);
+                            path.push('L' + em.cx.animVal.value + ' ' + em.cy.animVal.value);
+                            em.setAttribute('class', 'active');
+                            cc = em;
+                        }
+                        l.path.attr('d', path.join(' ') + ' ' + 'L' + (e.originalEvent.touches[0].pageX - this.offsetLeft) + ' ' + (e.originalEvent.touches[0].pageY - this.offsetTop));
+                    });
+                    $(document).on('touchend', function() {
+                        down = false;
+                        l.path.attr('d', path.join(' '));
+                        console.log(path);
+                    });
+                }
+            },
+            init: function() {
+                this.set();
+                this.listen();
+            }
+        });
+        l.init();
+    });
+
+</script>
+</html>

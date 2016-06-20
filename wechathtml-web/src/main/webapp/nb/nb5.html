@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>
+        走马灯
+    </title>
+    <style>
+        .container {
+            position: absolute;
+            left: 40%;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-perspective: 100000px;
+            perspective: 100000px;
+            animation: haha 5s infinite linear;
+            -webkit-transform-origin: 100px 115px;
+            transform-origin: 100px 115px;
+        }
+        .container img {
+            width: 200px;
+            height: 330px;
+            position: absolute;
+        }
+        .container img:nth-child(1) {
+            -webkit-transform: rotateY(0deg) translateZ(260px);
+            transform: rotateY(0deg) translateZ(260px) ;
+        }
+        .container img:nth-child(2) {
+            -webkit-transform: rotateY(45deg) translateZ(260px);
+            transform: rotateY(52deg) translateZ(260px);
+        }
+        .container img:nth-child(3) {
+            -webkit-transform: rotateY(90deg) translateZ(260px) ;
+            transform: rotateY(104deg) translateZ(260px);
+        }
+        .container img:nth-child(4) {
+            -webkit-transform: rotateY(135deg) translateZ(260px) ;
+            transform: rotateY(156deg) translateZ(260px);
+        }
+        .container img:nth-child(5) {
+            -webkit-transform: rotateY(180deg) translateZ(260px) ;
+            transform: rotateY(208deg) translateZ(260px);
+        }
+        .container img:nth-child(6) {
+            -webkit-transform: rotateY(225deg) translateZ(260px);
+            transform: rotateY(260deg) translateZ(260px);
+        }
+        .container img:nth-child(7) {
+            -webkit-transform: rotateY(270deg) translateZ(260px);
+            transform: rotateY(312deg) translateZ(260px);
+        }
+        .container img:nth-child(8) {
+            -webkit-transform: rotateY(315deg) translateZ(260px);
+            transform: rotateY(360deg) translateZ(260px);
+        }
+        @keyframes haha {
+            from {
+                -webkit-transform: rotateY(0deg) ;
+                transform: rotateY(0deg) ;
+            }
+            100% {
+                -webkit-transform: rotateY(360deg) ;
+                transform: rotateY(360deg) ;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="http://sandbox.runjs.cn/uploads/rs/304/acpc9ohy/2637-100.jpg" alt=""/>
+    <img src="http://sandbox.runjs.cn/uploads/rs/304/acpc9ohy/3859-100.jpg" alt=""/>
+    <img src="http://sandbox.runjs.cn/uploads/rs/304/acpc9ohy/6304-100.jpg" alt=""/>
+    <img src="http://sandbox.runjs.cn/uploads/rs/304/acpc9ohy/32384-100.jpg" alt=""/>
+    <img src="http://sandbox.runjs.cn/uploads/rs/304/acpc9ohy/37051-100.jpg" alt=""/>
+    <img src="http://sandbox.runjs.cn/uploads/rs/304/acpc9ohy/37060-100.jpg" alt=""/>
+    <img src="http://sandbox.runjs.cn/uploads/rs/304/acpc9ohy/37103-100.jpg" alt=""/>
+    <img src="http://sandbox.runjs.cn/uploads/rs/304/acpc9ohy/37081-100.jpg" alt=""/>
+</div>
+</body>
+</html>

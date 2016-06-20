@@ -3,59 +3,167 @@
 <head>
     <title>canvas学习</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" class="">
     <style type="text/css">
         *{margin: 0;padding: 0}
-        #warp{
-            margin: 100px auto 0;
-            width:800px;
+        html {
+            font-size: 19px;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            height: 100%;
         }
-        .content-left{
-            margin-top:80px;
+        body{
+            height: 100%;
+            overflow: hidden;
         }
-        .content-img{
+
+        .icon {
+           float:left;
+        }
+        .content {
+            display: block;
+            overflow: hidden;
+        }
+        .content > p:first-child {
+            height: .938rem;
+            margin: 0 .875rem;
+            font-size: .625rem;
+            line-height: .938rem;
+            color: #b0b0b0;
+        }
+        .icon{
+           width:46px;
+           height:46px;
+           margin-top:18px;
+        }
+        .icon>img:first-child{
+            width: 100%;
+            height: auto;
+        }
+        .bubble{
+            margin: 0 .875rem;
+            max-width: 400px;
             display: inline-block;
+            padding-bottom:10.3592px;
+            padding-left:11.5px;
+            padding-right:11.5px;
+            padding-top:10.3592px;
+            background: green;
+            position: relative;
         }
-        .content-text{
-            display: inline-block;
+        .bubble > pre:first-child{
+            display: block;
+            white-space: pre-wrap;
         }
-        .add_div{
-            position:fixed;
-            top:0px;
-            left:0px;
+        .bubble:before{
+            content: "";
+            border-color: #919191;
+            box-sizing: border-box;
+            width: .438rem;
+            height: .438rem;
+            position: absolute;
+            top: .938rem;
+            transform: rotate(135deg);
+            left: -.21rem;
+            background: green;
         }
+        .message{
+            margin-bottom: 23px;
+            animation: goup .5s;
+        }
+        @keyframes goup{
+            from{
+                transform:translate(0,100px)
+            }
+            to{
+                transform:translate(0,0px)
+            }
+        }
+        .warpOut{
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+        }
+
     </style>
 </head>
 <body>
-<a href="javascript:void(0);" class="add_div">add div</a>
-    <div id="warp">
-        <div class="content-left">
-            <div class="content-img">
-                <img src="./static/imgs/a-lj.png">
-            </div>
-            <div class="content-text">
-                <span class="name">雷军</span>
-                <pre>这个我来回答，小米网5月17日周二首批开售3GB+32GB版本，小米之家17日也同步开售哦</pre>
+
+<div class="warpOut">
+<div class="warpwarp" id="warp" style="padding: 8px;">
+    <div class="message">
+        <div class="icon">
+            <img src="static/imgs/a-lj.png"/>
+        </div>
+        <div class="content">
+            <p>雷军</p>
+            <div class="bubble">
+                <pre>小米的朋友 你好，are you ok ？</pre>
             </div>
         </div>
     </div>
-
+</div>
+</div>
 </body>
+<script type="text/templet" id="message">
+    <div class="message">
+        <div class="icon">
+            <img src="{{=it.img}}"/>
+        </div>
+        <div class="content">
+            <p>{{=it.autor}}</p>
+            <div class="bubble">
+                <pre>{{=it.message}}</pre>
+            </div>
+        </div>
+    </div>
+</script>
 <script type="text/javascript" src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript">
-    $(function(){
-        function addDiv(){
-            $("#warp").append($("#warp>div:first").clone())
-//            $("#warp>div:last").animate({marginTop:"40px"},1000)
-            console.log("================================")
-            console.log($("#warp")[0].scrollHeight+"px")
-            console.log($("#warp")[0].scrollTop+"px")
-            console.log($("#warp")[0].scrollWidth+"px")
-            $("body").animate({scrollTop:$("#warp")[0].scrollHeight},1000)
+<script src="./static/js/doT.js"></script>
+<script>
+    $.fn.scrollSmooth = function(e, t) {
+        function a() {
+            var e = Math.min(1, (Date.now() - l) / t);
+            o.scrollTop = r * e + i,
+            1 > e && setTimeout(a, 10)
         }
+        var n = this,
+        o = n[0],
+        i = o.scrollTop,
+        r = e - i,//需要滚动的距离
+        l = Date.now();
+        a()
+    }
+    var data=[
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"小米的朋友 你好，are you ok ？"},
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"怎么样，不错吧？太忙没来得及邀请你参加发布会，我把大家叫过来单独给你介绍"},
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"想了解啥尽管问吧：）"},
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"想了解啥尽管问吧：）"},
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"想了解啥尽管问吧：）"},
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"我们刚刚发布了小米Max，先发几张美图和外观视频，你欣赏一下"},
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"怎么样，不错吧？太忙没来得及邀请你参加发布会，我把大家叫过来单独给你介绍"},
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"怎么样，不错吧？太忙没来得及邀请你参加发布会，我把大家叫过来单独给你介绍"},
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"怎么样，不错吧？太忙没来得及邀请你参加发布会，我把大家叫过来单独给你介绍"},
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"怎么样，不错吧？太忙没来得及邀请你参加发布会，我把大家叫过来单独给你介绍"},
+        {autor:"雷军"  ,img:"static/imgs/a-lj.png" ,"message":"怎么样，不错吧？太忙没来得及邀请你参加发布会，我把大家叫过来单独给你介绍"}
+    ]
+    var i=0;
+    var timmer = setInterval(function(){
+       if(i<data.length){
+           $(".warpwarp").append(doT.template($("#message").text()),data[i]);
+           i++;
+           console.log($(".warpwarp").height())
+           console.log("body : "+$("body").height())
+           console.log("warpOut : "+$(".warpOut").height())
+           console.log("warpwarp : "+$(".warpwarp").height())
+           var no = $(".warpwarp").height()-$(".warpOut").height()
+           if(no>0&&$(".warpOut").scrollSmooth(no+20,300)) ;
+//           $("body").scrollTop( $(".warpwarp").height())
+       }else{
+           i=0;
+           clearInterval(timmer)
+       }
 
-
-        $("a.add_div").bind("click",addDiv)
-
-    })
+    },1000)
 </script>
 </html>
